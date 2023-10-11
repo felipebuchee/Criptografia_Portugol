@@ -1,0 +1,141 @@
+programa
+{
+	inclua biblioteca Texto --> txt
+	inclua biblioteca Tipos --> t
+	inclua biblioteca Util
+ --> u
+	
+	const cadeia alfabeto[27] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "}
+	
+	cadeia questao
+	
+	funcao inicio()
+{
+	
+		pergunta()
+	}
+
+	funcao pergunta(){
+		escreva("Você deseja criptografar ou descriptografar sua mensagem?\n")
+		u.aguarde(500)
+		escreva("1) Criptografar 2) Descriptografar\n")
+		leia(questao)
+
+		se(questao == "1"){
+			criptografar()
+		}
+
+		senao se(questao == "2"){
+			descriptografar()
+		}
+
+		senao{
+			escreva("Insira um valor válido!\n\n")
+			u.aguarde(500)
+			pergunta()
+		}
+	}
+
+	funcao criptografar(){
+		
+		cadeia texto = ""
+		inteiro chave = 0
+		cadeia letra = ""
+		caracter letra_caracter = ' '
+		inteiro posicao
+		inteiro  numero_letras_frase
+		logico esta_no_alfabeto = falso
+
+
+		escreva("Escreva sua frase para criptografar: \n")
+		leia(texto)
+		escreva("\n")
+
+		escreva("Escreva sua chave: \n")
+		leia(chave)
+
+		escreva("\n", "Resultado:")
+		u.aguarde(500)
+
+	      numero_letras_frase = txt.numero_caracteres(texto)
+
+		para(inteiro h=0; h < numero_letras_frase; h++){
+
+			letra_caracter = txt.obter_caracter(texto, h)
+			
+			letra = t.caracter_para_cadeia(letra_caracter)
+
+			esta_no_alfabeto = falso
+			
+
+			para(inteiro i=0; i < 26; i++){
+			se(letra == alfabeto[i]){
+
+				posicao = i + chave
+				posicao = posicao % 26
+				
+				escreva(alfabeto[posicao])
+				esta_no_alfabeto = verdadeiro
+			pare
+			
+				} 		
+			}	
+			se(esta_no_alfabeto == falso){
+				escreva(letra)
+			}
+			
+		}
+		
+		escreva("\n")
+		escreva("Resetando em 5 segundos!")
+		u.aguarde(5000)
+		limpa()
+		pergunta()
+	}
+
+	funcao descriptografar(){
+
+		inteiro chaves = 0
+		cadeia texto = ""
+		cadeia letra = ""
+		caracter letra_caracter = ' '
+		inteiro posicao = 0
+		inteiro  numero_letras_frase = chaves
+		logico esta_no_alfabeto = falso
+
+		escreva("Que frase você pretende descriptografar?\n")
+		leia(texto)
+		
+		u.aguarde(500)
+	para(inteiro chave = 0; chave < 27; chave++)
+	      numero_letras_frase = txt.numero_caracteres(texto)
+
+		para(inteiro h=0; h < numero_letras_frase; h++){
+
+			letra_caracter = txt.obter_caracter(texto, h)
+			
+			letra = t.caracter_para_cadeia(letra_caracter)
+
+			esta_no_alfabeto = falso
+			
+			para(inteiro i=0; i < 26; i++){
+			se(letra == alfabeto[i]){
+				
+				posicao = i - chaves
+				se(posicao < 0){
+					posicao = posicao + 26
+				}
+				
+				escreva(alfabeto[posicao])
+				esta_no_alfabeto = verdadeiro
+			pare
+			
+				} 		
+			}	
+			se(esta_no_alfabeto == falso){
+				escreva(letra)
+		
+			}
+		}
+	}
+}
